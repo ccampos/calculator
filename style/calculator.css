@@ -22,5 +22,22 @@ p {
 .container .room .desk {
   background-color: #c2b9a0;
   height: 300px;
+  margin: 0 auto;
   width: 400px;
+  position: relative;
+  top: 20px;
+}
+.container .room .desk .calculator {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background: #454545;
+  border: 1px solid #777777;
+  height: 241px;
+  margin: 0 auto;
+  width: 195px;
+  position: relative;
+  top: 30px;
 }
