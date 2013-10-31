@@ -1,0 +1,32 @@
+.round-corners(@radius: 3px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;
+    border-radius: @radius;
+}
+
+body {
+    margin: 0;
+    background: #ececec;
+}
+
+p {
+    margin: 0;
+}
+
+.container {
+    height: 425px;
+    width: 526px;
+    .room {
+        .round-corners;
+        background-color: #ffffff;
+        height: 341px;
+        width: 442px;
+        .desk {
+            background-color: #c2b9a0;
+            height: 300px;
+            width: 400px;
+        }
+    }
+}
