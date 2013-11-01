@@ -83,17 +83,14 @@ p {
   font-weight: 200;
   height: 46px;
   letter-spacing: 1px;
+  margin: 10px 0 0 8px;
   width: 176px;
-  position: relative;
-  left: 8px;
   text-shadow: 0px 0px 1px #f3f3f3;
-  top: 10px;
 }
-.container .room .desk .calculator .keys {
-  height: 167px;
-  width: 176px;
-}
-.container .room .desk .calculator .keys button {
+.container .room .desk .calculator button {
+  -webkit-box-shadow: 0px 1px 3px 0px #111111;
+  -moz-box-shadow: 0px 1px 3px 0px #111111;
+  box-shadow: 0px 1px 3px 0px #111111;
   background: #5f5f5f;
   /* Old browsers */
 
@@ -126,5 +123,11 @@ p {
   border-width: 1px;
   border-color: #333333;
   color: #ffffff;
-  margin: 0;
+  font-family: Helvetica Neue;
+  font-size: 13px;
+  height: 27px;
+  letter-spacing: 1px;
+  margin: 8px 0 0 7px;
+  width: 36px;
+  position: relative;
 }

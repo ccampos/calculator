@@ -28,10 +28,10 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@colorStopB', endColorstr='@colorStopE',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.box-shadow() {
-    -webkit-box-shadow: 0px 6px 15px 0px #111111;
-    -moz-box-shadow: 0px 6px 15px 0px #111111;
-    box-shadow: 0px 6px 15px 0px #111111;
+.box-shadow(@horiz, @vert, @blur, @spread, @shadow) {
+    -webkit-box-shadow: @horiz @vert @blur @spread @shadow;
+    -moz-box-shadow: @horiz @vert @blur @spread @shadow;
+    box-shadow: @horiz @vert @blur @spread @shadow;
 }
 
 body {
@@ -59,7 +59,7 @@ p {
             position: relative;
             top: 20px;
             .calculator {
-                .box-shadow;
+                .box-shadow(0px, 6px, 15px, 0px, #111111);
                 .round-corners;
                 background: #454545;
                 border: 1px solid #333333;
@@ -81,24 +81,27 @@ p {
                     font-weight: 200;
                     height: 46px;
                     letter-spacing: 1px;
+                    margin: 10px 0 0 8px;
                     width: 176px;
-                    position: relative;
-                    left: 8px;
                     // to see text without cursor
                     text-shadow: 0px 0px 1px #f3f3f3;
-                    top: 10px;
                 }
-                .keys {
-                    height: 167px;
-                    width: 176px;
-                    button {
-                        .gradient-linear(#5f5f5f, #505050, #404040);
-                        .round-corners;
-                        border-width: 1px;
-                        border-color: #333333;
-                        color: #ffffff;
-                        margin: 0;
-                    }
+
+                button {
+                    .box-shadow(0px, 1px, 3px, 0px, #111111);
+                    .gradient-linear(#5f5f5f, #505050, #404040);
+                    .round-corners;
+                    border-width: 1px;
+                    border-color: #333333;
+                    color: #ffffff;
+                    font-family: Helvetica Neue;
+                    font-size: 13px;
+                    height: 27px;
+                    letter-spacing: 1px;
+                    margin: 8px 0 0 7px;
+                    width: 36px;
+
+                    position: relative;
                 }
             }
         }
