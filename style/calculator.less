@@ -6,6 +6,23 @@
     border-radius: @radius;
 }
 
+.gradient45(@colorStopB, @colorStopM, @colorStopE) {
+    background: @colorStopB; /* Old browsers */
+    background: -moz-linear-gradient(45deg, @colorStopB 0%, @colorStopM 36%, @colorStopE 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,@colorStopB), color-stop(36%,@colorStopM), color-stop(100%,@colorStopE)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(45deg, @colorStopB 0%,@colorStopM 36%,@colorStopE 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(45deg, @colorStopB 0%,@colorStopM 36%,@colorStopE 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(45deg, @colorStopB 0%,@colorStopM 36%,@colorStopE 100%); /* IE10+ */
+    background: linear-gradient(45deg, @colorStopB 0%,@colorStopM 36%,@colorStopE 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@colorStopB', endColorstr='@colorStopE',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.box-shadow() {
+    -webkit-box-shadow: 0px 6px 15px 0px #111111;
+    -moz-box-shadow: 0px 6px 15px 0px #111111;
+    box-shadow: 0px 6px 15px 0px #111111;
+}
+
 body {
     margin: 0;
     background: #ececec;
@@ -24,16 +41,18 @@ p {
         height: 341px;
         width: 442px;
         .desk {
-            background-color: #c2b9a0;
+            .gradient45(#726a5b, #c0b69d, #d5cfbc);
             height: 300px;
             margin: 0 auto;
             width: 400px;
             position: relative;
             top: 20px;
             .calculator {
+                .box-shadow;
                 .round-corners;
                 background: #454545;
-                border: 1px solid #777777;
+                border: 1px solid #333333;
+                border-top: 1px ridge #777777;
                 height: 241px;
                 margin: 0 auto;
                 width: 195px;
