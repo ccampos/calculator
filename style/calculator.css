@@ -46,6 +46,7 @@ p {
 
   background-image: -webkit-radial-gradient(center top, circle farthest-corner, #d5cfbc 0%, #c0b69d 50%, #726a5b 100%);
   background-image: radial-gradient(center top, circle farthest-corner, #d5cfbc 0%, #c0b69d 50%, #726a5b 100%);
+  box-shadow: 0 0 10px 0 #c0b69d inset;
   height: 300px;
   margin: 0 auto;
   width: 400px;
