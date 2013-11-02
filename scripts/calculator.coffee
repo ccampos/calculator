@@ -18,7 +18,7 @@ calculate = (operator, newOperand) ->
         when '/'
             if newOperand is 0
                 return 'Error'
-            operands[0] / newOperand
+            firstOperand / newOperand
         when '-' then firstOperand - newOperand
         when '+' then firstOperand + newOperand
 

@@ -22,7 +22,7 @@
         if (newOperand === 0) {
           return 'Error';
         }
-        return operands[0] / newOperand;
+        return firstOperand / newOperand;
       case '-':
         return firstOperand - newOperand;
       case '+':
