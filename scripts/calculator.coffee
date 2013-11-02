@@ -1,7 +1,7 @@
 calc = angular.module 'calc', []
 
 calc.controller 'CalcCtrl', ($scope) ->
-    $scope.hello = 'hello'
+    $scope.display = 'hello'
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
         7, 8, 9, '/',
@@ -11,3 +11,6 @@ calc.controller 'CalcCtrl', ($scope) ->
     ]
 
 calculate = (operator, number) ->
+
+# press an 'operator key' -> returns result if previous operand
+# press a 'number' key -> adds 'number' to display
