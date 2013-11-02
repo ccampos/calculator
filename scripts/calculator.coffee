@@ -9,3 +9,5 @@ calc.controller 'CalcCtrl', ($scope) ->
         1, 2, 3, '-',
         0, '.', '=', '+'
     ]
+
+calculate = (operator, number) ->
