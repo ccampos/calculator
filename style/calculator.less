@@ -17,6 +17,12 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@colorStopB', endColorstr='@colorStopE',GradientType=0 ); /* IE6-9 */
 }
 
+// .gradient-45(#726a5b, #c0b69d, #d5cfbc);
+.gradient-radial() {
+    background-image: -webkit-radial-gradient(center top, ellipse farthest-corner, #d5cfbc 0%, #c0b69d 100%, #726a5b 50%);
+    background-image:         radial-gradient(center top, ellipse farthest-corner, #d5cfbc 0%, #c0b69d 100%, #726a5b 50%);
+}
+
 .gradient-45(@colorStopB, @colorStopM, @colorStopE) {
     background: @colorStopB; /* Old browsers */
     background: -moz-linear-gradient(45deg, @colorStopB 0%, @colorStopM 36%, @colorStopE 100%); /* FF3.6+ */
@@ -53,6 +59,7 @@ p {
         width: 442px;
         .desk {
             .gradient-45(#726a5b, #c0b69d, #d5cfbc);
+            .gradient-radial();
             height: 300px;
             margin: 0 auto;
             width: 400px;

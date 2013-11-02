@@ -44,6 +44,8 @@ p {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colorStopB', endColorstr='@colorStopE', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
 
+  background-image: -webkit-radial-gradient(center top, ellipse farthest-corner, #d5cfbc 0%, #c0b69d 100%, #726a5b 50%);
+  background-image: radial-gradient(center top, ellipse farthest-corner, #d5cfbc 0%, #c0b69d 100%, #726a5b 50%);
   height: 300px;
   margin: 0 auto;
   width: 400px;
