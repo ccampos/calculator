@@ -137,3 +137,29 @@ p {
   left: 0px;
   top: 0px;
 }
+.container .room .desk .calculator button:last-child {
+  background: #40cc40;
+  /* Old browsers */
+
+  background: -moz-linear-gradient(top, #40cc40 0%, #50cc50 44%, #5f995f 100%);
+  /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #40cc40), color-stop(44%, #50cc50), color-stop(100%, #5f995f));
+  /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top, #40cc40 0%, #50cc50 44%, #5f995f 100%);
+  /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top, #40cc40 0%, #50cc50 44%, #5f995f 100%);
+  /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top, #40cc40 0%, #50cc50 44%, #5f995f 100%);
+  /* IE10+ */
+
+  background: linear-gradient(to bottom, #40cc40 0%, #50cc50 44%, #5f995f 100%);
+  /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@colorStopB', endColorstr='@colorStopE', GradientType=0);
+  /* IE6-9 */
+
+}
