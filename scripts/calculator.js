@@ -13,7 +13,7 @@
     calculate = function(operator, newOperand) {
       var firstOperand;
 
-      firstOperand = operands[operands.length - 1];
+      firstOperand = $scope.display;
       switch (operator) {
         case 'x':
           return firstOperand * newOperand;
@@ -36,11 +36,9 @@
     neededNumberOfDecimals = 'we\'ll see';
     if (result !== 'Error') {
       operands.push(result);
-      operands.shift();
-      return $scope.display = result;
+      return operands.shift();
     } else {
-      operands = [];
-      return $scope.display = 'Error';
+      return operands = [];
     }
   });
 

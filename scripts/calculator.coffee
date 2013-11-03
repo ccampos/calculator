@@ -12,7 +12,7 @@ calc.controller 'CalcCtrl', ($scope) ->
     ]
 
     calculate = (operator, newOperand) ->
-        firstOperand = operands[operands.length - 1]
+        firstOperand = $scope.display
         switch operator
             when 'x' then firstOperand * newOperand
             when '/'
@@ -32,10 +32,8 @@ calc.controller 'CalcCtrl', ($scope) ->
     unless result is 'Error'
         operands.push result
         operands.shift()
-        $scope.display = result
     else
         operands = []
-        $scope.display = 'Error'
 
     # press an 'operator key' -> returns result if previous operand
     # press a 'number' key -> adds 'number' to display
