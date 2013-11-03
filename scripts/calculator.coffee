@@ -32,6 +32,7 @@ calc.controller 'CalcCtrl', ($scope) ->
     unless result is 'Error'
         operands.push result
         operands.shift()
+        $scope.display = operands[operands.length - 1]
     else
         operands = []
 

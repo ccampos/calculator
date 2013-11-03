@@ -36,7 +36,8 @@
     neededNumberOfDecimals = 'we\'ll see';
     if (result !== 'Error') {
       operands.push(result);
-      return operands.shift();
+      operands.shift();
+      return $scope.display = operands[operands.length - 1];
     } else {
       return operands = [];
     }
