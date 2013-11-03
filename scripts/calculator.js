@@ -5,7 +5,7 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var calculate, operands, result;
+    var calculate, decimalsNumberDigits, indexDot, integersNumberDigits, neededNumberOfDecimals, numberLength, operands, result;
 
     operands = [8, 7];
     $scope.display = operands[operands.length - 1];
@@ -28,7 +28,12 @@
           return firstOperand + newOperand;
       }
     };
-    result = calculate('/', 3).toFixed(5);
+    result = calculate('/', 3);
+    numberLength = result.toString().length;
+    indexDot = result.toString().indexOf('.');
+    integersNumberDigits = +result.toString().slice(0, indexDot).length;
+    decimalsNumberDigits = +result.toString().slice(indexDot, numberLength).length;
+    neededNumberOfDecimals = 'we\'ll see';
     if (result !== 'Error') {
       operands.push(result);
       operands.shift();
