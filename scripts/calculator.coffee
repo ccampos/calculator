@@ -2,6 +2,7 @@ calc = angular.module 'calc', []
 
 calc.controller 'CalcCtrl', ($scope) ->
     operands = [8, 333334]
+    operator = '/'
     allowDigits = 11
 
     $scope.display = operands[operands.length - 1]
@@ -33,15 +34,24 @@ calc.controller 'CalcCtrl', ($scope) ->
             when '-' then _fOper - _sOper
             when '+' then _fOper + _sOper
 
-    result = formatResult calculate(1000000, '/', 3)
+    getResult = ->
+        _result = formatResult calculate(operands[0], operator, operands[1])
 
-    unless result is 'Error'
-        operands.shift()
+    modifyArr = (result) ->
         operands.shift()
         operands.push result
-        $scope.display = operands[0]
-    else
-        operands = []
 
+    displayResult = (result) ->
+        unless result is 'Error'
+            $scope.display = operands[1]
+            operator = 'x' # new operator
+            modifyArr result
+        else
+            setTimeout ->
+                operands = []
+                operator = ''
+            , 1000
+
+    displayResult getResult()
     # press an 'operator key' -> returns result if previous operand
     # press a 'number' key -> adds 'number' to display

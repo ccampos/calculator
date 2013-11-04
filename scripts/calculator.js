@@ -5,9 +5,10 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var allowDigits, calculate, formatResult, operands, result;
+    var allowDigits, calculate, displayResult, formatResult, getResult, modifyArr, operands, operator;
 
     operands = [8, 333334];
+    operator = '/';
     allowDigits = 11;
     $scope.display = operands[operands.length - 1];
     $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
@@ -40,15 +41,28 @@
           return _fOper + _sOper;
       }
     };
-    result = formatResult(calculate(1000000, '/', 3));
-    if (result !== 'Error') {
+    getResult = function() {
+      var _result;
+
+      return _result = formatResult(calculate(operands[0], operator, operands[1]));
+    };
+    modifyArr = function(result) {
       operands.shift();
-      operands.shift();
-      operands.push(result);
-      return $scope.display = operands[0];
-    } else {
-      return operands = [];
-    }
+      return operands.push(result);
+    };
+    displayResult = function(result) {
+      if (result !== 'Error') {
+        $scope.display = operands[1];
+        operator = 'x';
+        return modifyArr(result);
+      } else {
+        return setTimeout(function() {
+          operands = [];
+          return operator = '';
+        }, 1000);
+      }
+    };
+    return displayResult(getResult());
   });
 
 }).call(this);
