@@ -5,7 +5,7 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var allowDigits, calculate, displayResult, formatResult, getResult, modifyOperands, operands, operator;
+    var allowDigits, calculate, concat, displayResult, formatResult, getResult, modifyOperands, operands, operator;
 
     operands = [];
     operator = '/';
@@ -62,28 +62,47 @@
       operands.shift();
       return operands.push(result);
     };
-    return $scope.nextCalculation = function(key) {
-      var displayS, _number, _result;
+    concat = function(key) {
+      var displayS;
 
-      if (key === '/' || key === 'x' || key === '-' || key === '+') {
-        operator = key;
-        if (operands.length === 2) {
-          _result = getResult();
-          displayResult(_result);
-          return modifyOperands(_result);
-        } else {
-          return console.log('another operand needed');
-        }
+      if ($scope.display === void 0) {
+        return $scope.display = key;
       } else {
-        _number = key;
-        if ($scope.display === void 0) {
-          return $scope.display = _number;
-        } else {
-          displayS = $scope.display.toString();
-          if (displayS.length < allowDigits) {
-            return $scope.display = +(displayS + _number.toString());
+        displayS = $scope.display.toString();
+        if (displayS.length < allowDigits) {
+          if (key === '.') {
+            return $scope.display = displayS + key;
+          } else {
+            return $scope.display = +(displayS + key.toString());
           }
         }
+      }
+    };
+    return $scope.nextCalculation = function(key) {
+      var _result;
+
+      switch (key) {
+        case '/':
+        case 'x':
+        case '-':
+        case '+':
+          operator = key;
+          if (operands.length === 2) {
+            _result = getResult();
+            displayResult(_result);
+            modifyOperands(_result);
+          } else {
+            console.log('another operand needed');
+          }
+          break;
+        case '.':
+          concat(key);
+          break;
+        default:
+          console.log('switch has no match');
+      }
+      if (typeof key === 'number') {
+        return concat(key);
       }
     };
   });
