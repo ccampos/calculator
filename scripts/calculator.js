@@ -5,10 +5,10 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var allowedNumberDigits, calculate, formatResult, operands, result;
+    var allowDigits, calculate, formatResult, operands, result;
 
-    operands = [8, 334];
-    allowedNumberDigits = 11;
+    operands = [8, 333334];
+    allowDigits = 11;
     $scope.display = operands[operands.length - 1];
     $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
     formatResult = function(result) {
@@ -18,7 +18,7 @@
       _numLen = _resS.length;
       _indexDot = _resS.indexOf('.');
       _intDigits = +_resS.slice(0, _indexDot).length;
-      _decDigitsNeeded = allowedNumberDigits - _intDigits - 1;
+      _decDigitsNeeded = allowDigits - _intDigits - 1;
       return _resS = +result.toFixed(_decDigitsNeeded);
     };
     calculate = function(operator, newOperand) {

@@ -1,8 +1,8 @@
 calc = angular.module 'calc', []
 
 calc.controller 'CalcCtrl', ($scope) ->
-    operands = [8, 334]
-    allowedNumberDigits = 11
+    operands = [8, 333334]
+    allowDigits = 11
     $scope.display = operands[operands.length - 1]
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
@@ -17,7 +17,7 @@ calc.controller 'CalcCtrl', ($scope) ->
         _numLen = _resS.length
         _indexDot = _resS.indexOf('.')
         _intDigits = +_resS.slice(0, _indexDot).length
-        _decDigitsNeeded = allowedNumberDigits - _intDigits - 1
+        _decDigitsNeeded = allowDigits - _intDigits - 1 # minus dot
         _resS = +result.toFixed(_decDigitsNeeded)
 
     calculate = (operator, newOperand) ->
