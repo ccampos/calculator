@@ -1,11 +1,10 @@
 calc = angular.module 'calc', []
 
 calc.controller 'CalcCtrl', ($scope) ->
-    operands = [8, 333334]
+    operands = []
     operator = '/'
-    allowDigits = 11
+    allowDigits = 10
 
-    $scope.display = operands[operands.length - 1]
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
         7, 8, 9, '/',
@@ -19,8 +18,8 @@ calc.controller 'CalcCtrl', ($scope) ->
         _numLen = _resS.length
         _indexDot = _resS.indexOf('.')
         _intDigits = +_resS.slice(0, _indexDot).length
-        _decDigitsNeeded = allowDigits - _intDigits - 1 # minus dot
-        _resS = +result.toFixed(_decDigitsNeeded)
+        _decDigitsNeeded = allowDigits - _intDigits
+        _result = +result.toFixed(_decDigitsNeeded)
 
     calculate = (firstOperand, operator, secondOperand) ->
         _fOper = firstOperand
@@ -53,16 +52,24 @@ calc.controller 'CalcCtrl', ($scope) ->
         operands.shift()
         operands.push result
 
-    nextCalculation = (newOperator) ->
-        operator = newOperator # new operator
-        if operands.length > 1
-            _result = getResult()
-            displayResult _result
-            modifyOperands(_result)
-        else
-            console.log 'another operand needed'
+    $scope.nextCalculation = (key) ->
+        if key is '/' or key is 'x' or key is '-' or key is '+'
+            operator = key
 
-    nextCalculation 'x'
+            if operands.length is 2
+                _result = getResult()
+                displayResult _result
+                modifyOperands(_result)
+            else
+                console.log 'another operand needed'
+        else
+            _number = key
+            if $scope.display is undefined
+                $scope.display = _number
+            else
+                displayS = $scope.display.toString()
+                if displayS.length < allowDigits
+                    $scope.display = +(displayS + _number.toString())
 
     # press an 'operator key' -> returns result if previous operand
     # press a 'number' key -> adds 'number' to display

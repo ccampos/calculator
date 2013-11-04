@@ -5,22 +5,21 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var allowDigits, calculate, displayResult, formatResult, getResult, modifyOperands, nextCalculation, operands, operator;
+    var allowDigits, calculate, displayResult, formatResult, getResult, modifyOperands, operands, operator;
 
-    operands = [8, 333334];
+    operands = [];
     operator = '/';
-    allowDigits = 11;
-    $scope.display = operands[operands.length - 1];
+    allowDigits = 10;
     $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
     formatResult = function(result) {
-      var _decDigitsNeeded, _indexDot, _intDigits, _numLen, _resS;
+      var _decDigitsNeeded, _indexDot, _intDigits, _numLen, _resS, _result;
 
       _resS = result.toString();
       _numLen = _resS.length;
       _indexDot = _resS.indexOf('.');
       _intDigits = +_resS.slice(0, _indexDot).length;
-      _decDigitsNeeded = allowDigits - _intDigits - 1;
-      return _resS = +result.toFixed(_decDigitsNeeded);
+      _decDigitsNeeded = allowDigits - _intDigits;
+      return _result = +result.toFixed(_decDigitsNeeded);
     };
     calculate = function(firstOperand, operator, secondOperand) {
       var _fOper, _sOper;
@@ -63,19 +62,30 @@
       operands.shift();
       return operands.push(result);
     };
-    nextCalculation = function(newOperator) {
-      var _result;
+    return $scope.nextCalculation = function(key) {
+      var displayS, _number, _result;
 
-      operator = newOperator;
-      if (operands.length > 1) {
-        _result = getResult();
-        displayResult(_result);
-        return modifyOperands(_result);
+      if (key === '/' || key === 'x' || key === '-' || key === '+') {
+        operator = key;
+        if (operands.length === 2) {
+          _result = getResult();
+          displayResult(_result);
+          return modifyOperands(_result);
+        } else {
+          return console.log('another operand needed');
+        }
       } else {
-        return console.log('another operand needed');
+        _number = key;
+        if ($scope.display === void 0) {
+          return $scope.display = _number;
+        } else {
+          displayS = $scope.display.toString();
+          if (displayS.length < allowDigits) {
+            return $scope.display = +(displayS + _number.toString());
+          }
+        }
       }
     };
-    return nextCalculation('x');
   });
 
 }).call(this);
