@@ -21,29 +21,31 @@
       _decDigitsNeeded = allowDigits - _intDigits - 1;
       return _resS = +result.toFixed(_decDigitsNeeded);
     };
-    calculate = function(operator, newOperand) {
-      var firstOperand;
+    calculate = function(firstOperand, operator, secondOperand) {
+      var _fOper, _sOper;
 
-      firstOperand = $scope.display;
+      _fOper = firstOperand;
+      _sOper = secondOperand;
       switch (operator) {
         case 'x':
-          return firstOperand * newOperand;
+          return _fOper * _sOper;
         case '/':
-          if (newOperand === 0) {
+          if (_sOper === 0) {
             return 'Error';
           }
-          return firstOperand / newOperand;
+          return _fOper / _sOper;
         case '-':
-          return firstOperand - newOperand;
+          return _fOper - _sOper;
         case '+':
-          return firstOperand + newOperand;
+          return _fOper + _sOper;
       }
     };
-    result = formatResult(calculate('/', 3));
+    result = formatResult(calculate(10, '/', 3));
     if (result !== 'Error') {
-      operands.push(result);
       operands.shift();
-      return $scope.display = operands[operands.length - 1];
+      operands.shift();
+      operands.push(result);
+      return $scope.display = operands[0];
     } else {
       return operands = [];
     }

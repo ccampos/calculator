@@ -3,6 +3,7 @@ calc = angular.module 'calc', []
 calc.controller 'CalcCtrl', ($scope) ->
     operands = [8, 333334]
     allowDigits = 11
+
     $scope.display = operands[operands.length - 1]
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
@@ -20,23 +21,25 @@ calc.controller 'CalcCtrl', ($scope) ->
         _decDigitsNeeded = allowDigits - _intDigits - 1 # minus dot
         _resS = +result.toFixed(_decDigitsNeeded)
 
-    calculate = (operator, newOperand) ->
-        firstOperand = $scope.display
+    calculate = (firstOperand, operator, secondOperand) ->
+        _fOper = firstOperand
+        _sOper = secondOperand
         switch operator
-            when 'x' then firstOperand * newOperand
+            when 'x' then _fOper * _sOper
             when '/'
-                if newOperand is 0
+                if _sOper is 0
                     return 'Error'
-                firstOperand / newOperand
-            when '-' then firstOperand - newOperand
-            when '+' then firstOperand + newOperand
+                _fOper / _sOper
+            when '-' then _fOper - _sOper
+            when '+' then _fOper + _sOper
 
-    result = formatResult calculate('/', 3)
+    result = formatResult calculate(10, '/', 3)
 
     unless result is 'Error'
-        operands.push result
         operands.shift()
-        $scope.display = operands[operands.length - 1]
+        operands.shift()
+        operands.push result
+        $scope.display = operands[0]
     else
         operands = []
 
