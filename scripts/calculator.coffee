@@ -33,7 +33,7 @@ calc.controller 'CalcCtrl', ($scope) ->
             when '-' then _fOper - _sOper
             when '+' then _fOper + _sOper
 
-    result = formatResult calculate(10, '/', 3)
+    result = formatResult calculate(1000000, '/', 3)
 
     unless result is 'Error'
         operands.shift()

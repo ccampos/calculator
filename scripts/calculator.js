@@ -40,7 +40,7 @@
           return _fOper + _sOper;
       }
     };
-    result = formatResult(calculate(10, '/', 3));
+    result = formatResult(calculate(1000000, '/', 3));
     if (result !== 'Error') {
       operands.shift();
       operands.shift();
