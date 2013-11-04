@@ -33,25 +33,36 @@ calc.controller 'CalcCtrl', ($scope) ->
                 _fOper / _sOper
             when '-' then _fOper - _sOper
             when '+' then _fOper + _sOper
+            else
+                console.log 'operator not found'
 
     getResult = ->
         _result = formatResult calculate(operands[0], operator, operands[1])
 
-    modifyArr = (result) ->
-        operands.shift()
-        operands.push result
-
     displayResult = (result) ->
         unless result is 'Error'
-            $scope.display = operands[1]
-            operator = 'x' # new operator
-            modifyArr result
+            $scope.display = result
         else
             setTimeout ->
                 operands = []
                 operator = ''
             , 1000
 
-    displayResult getResult()
+    modifyOperands = (result) ->
+        operands.shift()
+        operands.shift()
+        operands.push result
+
+    nextCalculation = (newOperator) ->
+        operator = newOperator # new operator
+        if operands.length > 1
+            _result = getResult()
+            displayResult _result
+            modifyOperands(_result)
+        else
+            console.log 'another operand needed'
+
+    nextCalculation 'x'
+
     # press an 'operator key' -> returns result if previous operand
     # press a 'number' key -> adds 'number' to display

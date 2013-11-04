@@ -5,7 +5,7 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var allowDigits, calculate, displayResult, formatResult, getResult, modifyArr, operands, operator;
+    var allowDigits, calculate, displayResult, formatResult, getResult, modifyOperands, nextCalculation, operands, operator;
 
     operands = [8, 333334];
     operator = '/';
@@ -39,6 +39,8 @@
           return _fOper - _sOper;
         case '+':
           return _fOper + _sOper;
+        default:
+          return console.log('operator not found');
       }
     };
     getResult = function() {
@@ -46,15 +48,9 @@
 
       return _result = formatResult(calculate(operands[0], operator, operands[1]));
     };
-    modifyArr = function(result) {
-      operands.shift();
-      return operands.push(result);
-    };
     displayResult = function(result) {
       if (result !== 'Error') {
-        $scope.display = operands[1];
-        operator = 'x';
-        return modifyArr(result);
+        return $scope.display = result;
       } else {
         return setTimeout(function() {
           operands = [];
@@ -62,7 +58,24 @@
         }, 1000);
       }
     };
-    return displayResult(getResult());
+    modifyOperands = function(result) {
+      operands.shift();
+      operands.shift();
+      return operands.push(result);
+    };
+    nextCalculation = function(newOperator) {
+      var _result;
+
+      operator = newOperator;
+      if (operands.length > 1) {
+        _result = getResult();
+        displayResult(_result);
+        return modifyOperands(_result);
+      } else {
+        return console.log('another operand needed');
+      }
+    };
+    return nextCalculation('x');
   });
 
 }).call(this);
