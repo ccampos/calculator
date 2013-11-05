@@ -36,16 +36,25 @@ calc.controller 'CalcCtrl', ($scope) ->
                 console.log 'operator not found'
 
     getResult = ->
-        _result = formatResult calculate(operands[0], operator, operands[1])
+        unless operands[1] is 0
+            _result = formatResult calculate(operands[0], operator, operands[1])
+        else
+            _result = calculate(operands[0], operator, operands[1])
+
 
     displayResult = (result) ->
         unless result is 'Error'
             $scope.display = result
         else
+            operands = []
+            operator = ''
+            $scope.display = 'Error: div 0'
             setTimeout ->
-                operands = []
-                operator = ''
+                console.log $scope.display = 0
+                console.log 'timeout'
+                return
             , 1000
+            return
 
     modifyOperands = (result) ->
         operands.shift()

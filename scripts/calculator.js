@@ -45,15 +45,22 @@
     getResult = function() {
       var _result;
 
-      return _result = formatResult(calculate(operands[0], operator, operands[1]));
+      if (operands[1] !== 0) {
+        return _result = formatResult(calculate(operands[0], operator, operands[1]));
+      } else {
+        return _result = calculate(operands[0], operator, operands[1]);
+      }
     };
     displayResult = function(result) {
       if (result !== 'Error') {
         return $scope.display = result;
       } else {
-        return setTimeout(function() {
-          operands = [];
-          return operator = '';
+        operands = [];
+        operator = '';
+        $scope.display = 'Error: div 0';
+        setTimeout(function() {
+          console.log($scope.display = 0);
+          console.log('timeout');
         }, 1000);
       }
     };
