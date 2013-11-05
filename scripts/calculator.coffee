@@ -67,7 +67,7 @@ calc.controller 'CalcCtrl', ($scope) ->
     $scope.nextCalculation = (key) ->
         switch key
             when '/', 'x', '-', '+'
-                operator = key
+                operands.push $scope.display
 
                 if operands.length is 2
                     _result = getResult()
@@ -75,10 +75,12 @@ calc.controller 'CalcCtrl', ($scope) ->
                     modifyOperands(_result)
                 else
                     console.log 'another operand needed'
+                    $scope.display = ''
+
+                operator = key
+
             when '.'
                 concat key
-            else
-                console.log 'switch has no match'
 
         if typeof key is 'number'
             concat key

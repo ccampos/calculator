@@ -86,20 +86,19 @@
         case 'x':
         case '-':
         case '+':
-          operator = key;
+          operands.push($scope.display);
           if (operands.length === 2) {
             _result = getResult();
             displayResult(_result);
             modifyOperands(_result);
           } else {
             console.log('another operand needed');
+            $scope.display = '';
           }
+          operator = key;
           break;
         case '.':
           concat(key);
-          break;
-        default:
-          console.log('switch has no match');
       }
       if (typeof key === 'number') {
         return concat(key);
