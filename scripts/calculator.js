@@ -8,7 +8,7 @@
     var allowDigits, calculate, concat, displayResult, formatResult, getResult, modifyOperands, operands, operator;
 
     operands = [];
-    operator = '/';
+    operator = void 0;
     allowDigits = 10;
     $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
     formatResult = function(result) {
@@ -88,6 +88,12 @@
     return $scope.nextCalculation = function(key) {
       var _result;
 
+      if (typeof key === 'number') {
+        if (operator !== void 0) {
+          $scope.display = '';
+        }
+        concat(key);
+      }
       switch (key) {
         case '/':
         case 'x':
@@ -95,20 +101,16 @@
         case '+':
           operands.push($scope.display);
           if (operands.length === 2) {
+            $scope.display = '';
             _result = getResult();
             displayResult(_result);
             modifyOperands(_result);
           } else {
             console.log('another operand needed');
-            $scope.display = '';
           }
-          operator = key;
-          break;
+          return operator = key;
         case '.':
-          concat(key);
-      }
-      if (typeof key === 'number') {
-        return concat(key);
+          return concat(key);
       }
     };
   });

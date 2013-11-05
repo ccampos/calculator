@@ -2,7 +2,7 @@ calc = angular.module 'calc', []
 
 calc.controller 'CalcCtrl', ($scope) ->
     operands = []
-    operator = '/'
+    operator = undefined
     allowDigits = 10
 
     $scope.keys = [
@@ -74,25 +74,27 @@ calc.controller 'CalcCtrl', ($scope) ->
                     $scope.display = +(displayS + key.toString())
 
     $scope.nextCalculation = (key) ->
+        if typeof key is 'number'
+            unless operator is undefined
+                $scope.display = ''
+            concat key
+
         switch key
             when '/', 'x', '-', '+'
                 operands.push $scope.display
 
                 if operands.length is 2
+                    $scope.display = ''
                     _result = getResult()
                     displayResult _result
                     modifyOperands(_result)
                 else
                     console.log 'another operand needed'
-                    $scope.display = ''
 
                 operator = key
 
             when '.'
                 concat key
-
-        if typeof key is 'number'
-            concat key
 
     # press an 'operator key' -> returns result if previous operand
     # press a 'number' key -> adds 'number' to display
