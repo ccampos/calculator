@@ -5,10 +5,11 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var allowDigits, calcArr, calculate, concatNumber, format;
+    var allowDigits, calcArr, calculate, concatNumber, format, memory;
 
     calcArr = [];
     allowDigits = 10;
+    memory = void 0;
     $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
     calculate = function(firstOperand, operator, secondOperand) {
       var _fOper, _sOper;
@@ -93,6 +94,18 @@
               calcArr.shift();
           }
         }
+      }
+      switch (key) {
+        case 'mc':
+          memory = void 0;
+          break;
+        case 'm+':
+          memory = $scope.display;
+          break;
+        case 'mr':
+          if (memory != null) {
+            $scope.next(memory);
+          }
       }
       return $scope.display = calcArr[calcArr.length - 1];
     };

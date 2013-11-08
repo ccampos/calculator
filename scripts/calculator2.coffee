@@ -3,6 +3,7 @@ calc = angular.module 'calc', []
 calc.controller 'CalcCtrl', ($scope) ->
     calcArr = []
     allowDigits = 10
+    memory = undefined
 
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
@@ -39,6 +40,8 @@ calc.controller 'CalcCtrl', ($scope) ->
         _result = +result.toFixed(_decDigitsNeeded)
 
     $scope.next = (key) ->
+
+        # operands and operators
         if calcArr.length is 0
             if typeof key is 'number'
                 _number = key
@@ -72,5 +75,15 @@ calc.controller 'CalcCtrl', ($scope) ->
                         calcArr.shift()
                         calcArr.shift()
                         calcArr.shift()
+
+        # memory
+        switch key
+            when 'mc'
+                memory = undefined
+            when 'm+'
+                memory = $scope.display
+            when 'mr'
+                if memory?
+                    $scope.next memory
 
         $scope.display = calcArr[calcArr.length - 1]
