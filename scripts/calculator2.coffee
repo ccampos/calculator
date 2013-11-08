@@ -86,4 +86,11 @@ calc.controller 'CalcCtrl', ($scope) ->
                 if memory?
                     $scope.next memory
 
+        # todo: innovation
+        # add:
+        #   m+
+        #   m-
+        # refactor $scope.next key
+        # switch from mc to c
+
         $scope.display = calcArr[calcArr.length - 1]
