@@ -5,9 +5,10 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    var calcArr, calculate, concatNumber;
+    var allowDigits, calcArr, calculate, concatNumber, format;
 
     calcArr = [];
+    allowDigits = 10;
     $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
     calculate = function(firstOperand, operator, secondOperand) {
       var _fOper, _sOper;
@@ -35,6 +36,16 @@
 
       _number = number.toString() + number2;
       return +_number;
+    };
+    format = function(result) {
+      var _decDigitsNeeded, _indexDot, _intDigits, _numLen, _resS, _result;
+
+      _resS = result.toString();
+      _numLen = _resS.length;
+      _indexDot = _resS.indexOf('.');
+      _intDigits = +_resS.slice(0, _indexDot).length;
+      _decDigitsNeeded = allowDigits - _intDigits;
+      return _result = +result.toFixed(_decDigitsNeeded);
     };
     return $scope.next = function(key) {
       var _number, _operator, _result;
@@ -74,8 +85,9 @@
             case 'x':
             case '-':
             case '+':
+            case '=':
               _result = calculate(calcArr[0], calcArr[1], calcArr[2]);
-              calcArr.push(_result);
+              calcArr.push(format(_result));
               calcArr.shift();
               calcArr.shift();
               calcArr.shift();

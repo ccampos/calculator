@@ -2,6 +2,7 @@ calc = angular.module 'calc', []
 
 calc.controller 'CalcCtrl', ($scope) ->
     calcArr = []
+    allowDigits = 10
 
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
@@ -28,6 +29,14 @@ calc.controller 'CalcCtrl', ($scope) ->
     concatNumber = (number, number2) ->
         _number = number.toString() + number2
         +_number
+
+    format = (result) ->
+        _resS = result.toString()
+        _numLen = _resS.length
+        _indexDot = _resS.indexOf('.')
+        _intDigits = +_resS.slice(0, _indexDot).length
+        _decDigitsNeeded = allowDigits - _intDigits
+        _result = +result.toFixed(_decDigitsNeeded)
 
     $scope.next = (key) ->
         if calcArr.length is 0
@@ -57,9 +66,9 @@ calc.controller 'CalcCtrl', ($scope) ->
             else
                 _operator = key
                 switch key
-                    when '/', 'x', '-', '+'
+                    when '/', 'x', '-', '+', '='
                         _result = calculate calcArr[0], calcArr[1], calcArr[2]
-                        calcArr.push _result
+                        calcArr.push format _result
                         calcArr.shift()
                         calcArr.shift()
                         calcArr.shift()
