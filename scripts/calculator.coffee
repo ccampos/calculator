@@ -56,11 +56,6 @@ calc.controller 'CalcCtrl', ($scope) ->
             , 1000
             return
 
-    modifyOperands = (result) ->
-        operands.shift()
-        operands.shift()
-        operands.push result
-
     # for numbers and '.'
     concat = (key) ->
         if $scope.display is undefined
@@ -73,28 +68,32 @@ calc.controller 'CalcCtrl', ($scope) ->
                 else
                     $scope.display = +(displayS + key.toString())
 
-    $scope.nextCalculation = (key) ->
+    $scope.nextKey = (key) ->
         if typeof key is 'number'
             unless operator is undefined
                 $scope.display = ''
             concat key
 
         switch key
-            when '/', 'x', '-', '+'
+            when '/', 'x', '-', '+', '='
                 operands.push $scope.display
 
                 if operands.length is 2
-                    $scope.display = ''
                     _result = getResult()
                     displayResult _result
-                    modifyOperands(_result)
+                    operands = []
+                    operands.push _result
                 else
                     console.log 'another operand needed'
 
                 operator = key
+                console.log key
 
             when '.'
                 concat key
+
+        console.log 'operands', operands
+        console.log 'operator', operator
 
     # press an 'operator key' -> returns result if previous operand
     # press a 'number' key -> adds 'number' to display
