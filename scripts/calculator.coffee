@@ -68,7 +68,7 @@ calc.controller 'CalcCtrl', ($scope) ->
                 else
                     $scope.display = +(displayS + key.toString())
 
-    $scope.nextKey = (key) ->
+    $scope.next = (key) ->
         if typeof key is 'number'
             unless operator is undefined
                 $scope.display = ''

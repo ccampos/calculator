@@ -5,7 +5,85 @@
   calc = angular.module('calc', []);
 
   calc.controller('CalcCtrl', function($scope) {
-    return $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
+    var calcArr, calculate, concatNumber;
+
+    calcArr = [];
+    $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
+    calculate = function(firstOperand, operator, secondOperand) {
+      var _fOper, _sOper;
+
+      _fOper = firstOperand;
+      _sOper = secondOperand;
+      switch (operator) {
+        case 'x':
+          return _fOper * _sOper;
+        case '/':
+          if (_sOper === 0) {
+            return 'Error';
+          }
+          return _fOper / _sOper;
+        case '-':
+          return _fOper - _sOper;
+        case '+':
+          return _fOper + _sOper;
+        default:
+          return console.log('operator not found');
+      }
+    };
+    concatNumber = function(number, number2) {
+      var _number;
+
+      _number = number.toString() + number2;
+      return +_number;
+    };
+    return $scope.next = function(key) {
+      var _number, _operator, _result;
+
+      if (calcArr.length === 0) {
+        if (typeof key === 'number') {
+          _number = key;
+          calcArr.push(_number);
+        }
+      } else if (calcArr.length === 1) {
+        if (typeof key === 'number') {
+          _number = key;
+          calcArr[0] = concatNumber(calcArr[0], _number);
+        } else {
+          _operator = key;
+          switch (key) {
+            case '/':
+            case 'x':
+            case '-':
+            case '+':
+              calcArr.push(_operator);
+          }
+        }
+      } else if (calcArr.length === 2) {
+        if (typeof key === 'number') {
+          _number = key;
+          calcArr.push(_number);
+        }
+      } else if (calcArr.length === 3) {
+        if (typeof key === 'number') {
+          _number = key;
+          calcArr[2] = concatNumber(calcArr[2], _number);
+        } else {
+          _operator = key;
+          switch (key) {
+            case '/':
+            case 'x':
+            case '-':
+            case '+':
+              _result = calculate(calcArr[0], calcArr[1], calcArr[2]);
+              calcArr.push(_result);
+              calcArr.shift();
+              calcArr.shift();
+              calcArr.shift();
+          }
+        }
+      }
+      return $scope.display = calcArr[calcArr.length - 1];
+    };
   });
 
 }).call(this);
