@@ -92,5 +92,7 @@ calc.controller 'CalcCtrl', ($scope) ->
         #   m-
         # refactor $scope.next key
         # switch from mc to c
+        # if hit number after result then reset display
+        # allow only a certain amount of numbers to be entered in display
 
         $scope.display = calcArr[calcArr.length - 1]
