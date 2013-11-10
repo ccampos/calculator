@@ -13,7 +13,7 @@ calc.controller 'CalcCtrl', ($scope) ->
         0, '.', '=', '+'
     ]
 
-    calculate = (firstOperand, operator, secondOperand) ->
+    operate = (firstOperand, operator, secondOperand) ->
         _fOper = firstOperand
         _sOper = secondOperand
         switch operator
@@ -39,8 +39,7 @@ calc.controller 'CalcCtrl', ($scope) ->
         _decDigitsNeeded = allowDigits - _intDigits
         _result = +result.toFixed(_decDigitsNeeded)
 
-    $scope.next = (key) ->
-
+    calculate = (key) ->
         # operands and operators
         if calcArr.length is 0
             if typeof key is 'number'
@@ -70,21 +69,32 @@ calc.controller 'CalcCtrl', ($scope) ->
                 _operator = key
                 switch key
                     when '/', 'x', '-', '+', '='
-                        _result = calculate calcArr[0], calcArr[1], calcArr[2]
+                        _result = operate calcArr[0], calcArr[1], calcArr[2]
                         calcArr.push format _result
                         calcArr.shift()
                         calcArr.shift()
                         calcArr.shift()
 
-        # memory
+    memorize = (key) ->
         switch key
             when 'mc'
                 memory = undefined
             when 'm+'
-                memory = $scope.display
+                memory = if memory is undefined then $scope.display else memory + $scope.display
+            when 'm-'
+                memory = if memory is undefined then $scope.display else memory - $scope.display
             when 'mr'
                 if memory?
                     $scope.next memory
+
+
+    $scope.next = (key) ->
+        switch key
+            when 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'x', '-', '+', '='
+                calculate key
+
+            when 'mc', 'm+', 'm-', 'mr'
+                memorize key
 
         # todo: innovation
         # add:
