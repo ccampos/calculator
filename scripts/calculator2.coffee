@@ -28,8 +28,8 @@ calc.controller 'CalcCtrl', ($scope) ->
                 console.log 'operator not found'
 
     concatNumber = (number, number2) ->
-        _number = number.toString() + number2
-        +_number
+        _numberString = number.toString() + number2
+        +_numberString
 
     format = (result) ->
         _resS = result.toString()
@@ -48,8 +48,9 @@ calc.controller 'CalcCtrl', ($scope) ->
 
         else if calcArr.length is 1
             if typeof key is 'number'
-                _number = key
-                calcArr[0] = concatNumber calcArr[0], _number
+                if calcArr[0].toString().length < allowDigits
+                    _number = key
+                    calcArr[0] = concatNumber calcArr[0], _number
             else
                 _operator = key
                 switch key
@@ -63,8 +64,9 @@ calc.controller 'CalcCtrl', ($scope) ->
 
         else if calcArr.length is 3
             if typeof key is 'number'
-                _number = key
-                calcArr[2] = concatNumber calcArr[2], _number
+                if calcArr[2].toString().length < allowDigits
+                    _number = key
+                    calcArr[2] = concatNumber calcArr[2], _number
             else
                 _operator = key
                 switch key

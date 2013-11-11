@@ -31,9 +31,9 @@
       }
     };
     concatNumber = function(number, number2) {
-      var _number;
-      _number = number.toString() + number2;
-      return +_number;
+      var _numberString;
+      _numberString = number.toString() + number2;
+      return +_numberString;
     };
     format = function(result) {
       var _decDigitsNeeded, _indexDot, _intDigits, _numLen, _resS, _result;
@@ -53,8 +53,10 @@
         }
       } else if (calcArr.length === 1) {
         if (typeof key === 'number') {
-          _number = key;
-          return calcArr[0] = concatNumber(calcArr[0], _number);
+          if (calcArr[0].toString().length < allowDigits) {
+            _number = key;
+            return calcArr[0] = concatNumber(calcArr[0], _number);
+          }
         } else {
           _operator = key;
           switch (key) {
@@ -72,8 +74,10 @@
         }
       } else if (calcArr.length === 3) {
         if (typeof key === 'number') {
-          _number = key;
-          return calcArr[2] = concatNumber(calcArr[2], _number);
+          if (calcArr[2].toString().length < allowDigits) {
+            _number = key;
+            return calcArr[2] = concatNumber(calcArr[2], _number);
+          }
         } else {
           _operator = key;
           switch (key) {
