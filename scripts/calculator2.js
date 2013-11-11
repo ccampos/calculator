@@ -101,7 +101,7 @@
           return memory = memory === void 0 ? $scope.display : memory - $scope.display;
         case 'mr':
           if (memory != null) {
-            return $scope.next(memory);
+            return calcArr.push(memory);
           }
       }
     };

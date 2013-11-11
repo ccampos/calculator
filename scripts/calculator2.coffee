@@ -85,7 +85,7 @@ calc.controller 'CalcCtrl', ($scope) ->
                 memory = if memory is undefined then $scope.display else memory - $scope.display
             when 'mr'
                 if memory?
-                    $scope.next memory
+                    calcArr.push memory
 
 
     $scope.next = (key) ->
