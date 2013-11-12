@@ -7,7 +7,7 @@ calc.controller 'CalcCtrl', ($scope) ->
     hasResult = false
 
     $scope.keys = [
-        'mc', 'm+', 'm-', 'mr',
+        'C', 'm+', 'm-', 'mr',
         7, 8, 9, '/',
         4, 5, 6, 'x',
         1, 2, 3, '-',
@@ -30,6 +30,7 @@ calc.controller 'CalcCtrl', ($scope) ->
         if _integerNumberDigits >= allowDigits
             _result.toExponential(allowDigits - 5) # to allow for space
         else
+            _result = +_result
             +_result.toFixed(_decimalDigitsNeeded)
 
     #main functions
@@ -106,12 +107,19 @@ calc.controller 'CalcCtrl', ($scope) ->
                     calculate format memory
 
         if memory?
-            unless $scope.keys.indexOf('mr') is -1
-                _index = $scope.keys.indexOf 'mr'
+            unless $scope.keys.indexOf('C') is -1
+                _index = $scope.keys.indexOf 'C'
 
-                # highlight 'mr' key
-                el.addClass 'highlight'
+                $scope.keys[_index] = 'mc'
+
+            # highlight 'mr' key
+            el.addClass 'highlight'
         else
+            unless $scope.keys.indexOf('mc') is -1
+                _index = $scope.keys.indexOf('mc')
+
+                $scope.keys[_index] = 'C'
+
             el.removeClass 'highlight'
 
     # entry function
@@ -120,9 +128,10 @@ calc.controller 'CalcCtrl', ($scope) ->
             when 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'x', '-', '+', '=', '.'
                 calculate _key
 
-            when 'mc', 'm+', 'm-', 'mr'
+            when 'mc', 'm+', 'm-', 'mr', 'C'
                 manageMemory _key
 
-        # todo: innovation
+                if _key is 'C'
+                    calcArr = []
 
         $scope.display = calcArr[calcArr.length - 1]

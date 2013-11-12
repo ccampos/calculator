@@ -11,7 +11,7 @@
     allowDigits = 10;
     memory = void 0;
     hasResult = false;
-    $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
+    $scope.keys = ['C', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
     concatNumber = function(_number, _key) {
       var _numberString;
 
@@ -32,6 +32,7 @@
       if (_integerNumberDigits >= allowDigits) {
         return _result.toExponential(allowDigits - 5);
       } else {
+        _result = +_result;
         return +_result.toFixed(_decimalDigitsNeeded);
       }
     };
@@ -134,11 +135,16 @@
           }
       }
       if (memory != null) {
-        if ($scope.keys.indexOf('mr') !== -1) {
-          _index = $scope.keys.indexOf('mr');
-          return el.addClass('highlight');
+        if ($scope.keys.indexOf('C') !== -1) {
+          _index = $scope.keys.indexOf('C');
+          $scope.keys[_index] = 'mc';
         }
+        return el.addClass('highlight');
       } else {
+        if ($scope.keys.indexOf('mc') !== -1) {
+          _index = $scope.keys.indexOf('mc');
+          $scope.keys[_index] = 'C';
+        }
         return el.removeClass('highlight');
       }
     };
@@ -166,7 +172,11 @@
         case 'm+':
         case 'm-':
         case 'mr':
+        case 'C':
           manageMemory(_key);
+          if (_key === 'C') {
+            calcArr = [];
+          }
       }
       return $scope.display = calcArr[calcArr.length - 1];
     };
