@@ -4,11 +4,12 @@ var calc;
 calc = angular.module('calc', []);
 
 calc.controller('CalcCtrl', function($scope) {
-  var allowDigits, calcArr, calculate, concatNumber, format, manageMemory, memory, operate;
+  var allowDigits, calcArr, calculate, concatNumber, format, hasResult, manageMemory, memory, operate;
 
   calcArr = [];
   allowDigits = 10;
   memory = void 0;
+  hasResult = false;
   $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
   concatNumber = function(_number, _key) {
     var _numberString;
@@ -56,9 +57,14 @@ calc.controller('CalcCtrl', function($scope) {
       }
     } else if (calcArr.length === 1) {
       if (typeof _key === 'number') {
-        if (calcArr[0].toString().length < allowDigits) {
-          _number = _key;
-          return calcArr[0] = concatNumber(calcArr[0], _number);
+        if (hasResult) {
+          calcArr[0] = _key;
+          return hasResult = false;
+        } else {
+          if (calcArr[0].toString().length < allowDigits) {
+            _number = _key;
+            return calcArr[0] = concatNumber(calcArr[0], _number);
+          }
         }
       } else if (_key === '.') {
         return calcArr[0] = concatNumber(calcArr[0], _key);
@@ -97,7 +103,8 @@ calc.controller('CalcCtrl', function($scope) {
             calcArr.push(format(_result));
             calcArr.shift();
             calcArr.shift();
-            return calcArr.shift();
+            calcArr.shift();
+            return hasResult = true;
         }
       }
     }

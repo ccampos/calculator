@@ -4,6 +4,7 @@ calc.controller 'CalcCtrl', ($scope) ->
     calcArr = []
     allowDigits = 10
     memory = undefined
+    hasResult = false
 
     $scope.keys = [
         'mc', 'm+', 'm-', 'mr',
@@ -49,9 +50,13 @@ calc.controller 'CalcCtrl', ($scope) ->
 
         else if calcArr.length is 1
             if typeof _key is 'number'
-                if calcArr[0].toString().length < allowDigits
-                    _number = _key
-                    calcArr[0] = concatNumber calcArr[0], _number
+                if hasResult
+                    calcArr[0] = _key
+                    hasResult = false
+                else
+                    if calcArr[0].toString().length < allowDigits
+                        _number = _key
+                        calcArr[0] = concatNumber calcArr[0], _number
             else if _key is '.'
                 calcArr[0] = concatNumber calcArr[0], _key
             else
@@ -81,6 +86,7 @@ calc.controller 'CalcCtrl', ($scope) ->
                         calcArr.shift()
                         calcArr.shift()
                         calcArr.shift()
+                        hasResult = true
 
     manageMemory = (_key) ->
         switch _key
@@ -105,7 +111,6 @@ calc.controller 'CalcCtrl', ($scope) ->
 
         # todo: innovation
         # switch from mc to c
-        # if hit number after result then reset display
         # do calculator font (maybe)
         # add red background color to 'mr' when there's memory stored
 
