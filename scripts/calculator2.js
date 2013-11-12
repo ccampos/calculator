@@ -10,11 +10,15 @@ calc.controller('CalcCtrl', function($scope) {
   allowDigits = 10;
   memory = void 0;
   $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
-  concatNumber = function(_number, _number2) {
+  concatNumber = function(_number, _key) {
     var _numberString;
 
-    _numberString = _number.toString() + _number2;
-    return +_numberString;
+    _numberString = _number.toString() + _key;
+    if (_key === '.') {
+      return _numberString;
+    } else if (typeof _key === 'number') {
+      return +_numberString;
+    }
   };
   format = function(_result) {
     var _decimalDigitsNeeded, _indexDot, _integerNumberDigits, _resultString;
@@ -56,6 +60,8 @@ calc.controller('CalcCtrl', function($scope) {
           _number = _key;
           return calcArr[0] = concatNumber(calcArr[0], _number);
         }
+      } else if (_key === '.') {
+        return calcArr[0] = concatNumber(calcArr[0], _key);
       } else {
         _operator = _key;
         switch (_key) {
@@ -77,6 +83,8 @@ calc.controller('CalcCtrl', function($scope) {
           _number = _key;
           return calcArr[2] = concatNumber(calcArr[2], _number);
         }
+      } else if (_key === '.') {
+        return calcArr[2] = concatNumber(calcArr[2], _key);
       } else {
         _operator = _key;
         switch (_key) {
@@ -125,6 +133,7 @@ calc.controller('CalcCtrl', function($scope) {
       case '-':
       case '+':
       case '=':
+      case '.':
         calculate(_key);
         break;
       case 'mc':

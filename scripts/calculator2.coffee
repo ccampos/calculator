@@ -14,9 +14,12 @@ calc.controller 'CalcCtrl', ($scope) ->
     ]
 
     # helper functions
-    concatNumber = (_number, _number2) ->
-        _numberString = _number.toString() + _number2
-        +_numberString
+    concatNumber = (_number, _key) ->
+        _numberString = _number.toString() + _key
+        if _key is '.'
+            _numberString
+        else if typeof _key is 'number'
+            +_numberString
 
     format = (_result) ->
         _resultString = _result.toString()
@@ -49,6 +52,8 @@ calc.controller 'CalcCtrl', ($scope) ->
                 if calcArr[0].toString().length < allowDigits
                     _number = _key
                     calcArr[0] = concatNumber calcArr[0], _number
+            else if _key is '.'
+                calcArr[0] = concatNumber calcArr[0], _key
             else
                 _operator = _key
                 switch _key
@@ -65,6 +70,8 @@ calc.controller 'CalcCtrl', ($scope) ->
                 if calcArr[2].toString().length < allowDigits
                     _number = _key
                     calcArr[2] = concatNumber calcArr[2], _number
+            else if _key is '.'
+                calcArr[2] = concatNumber calcArr[2], _key
             else
                 _operator = _key
                 switch _key
@@ -90,13 +97,12 @@ calc.controller 'CalcCtrl', ($scope) ->
     # entry function
     $scope.handleNext = (_key) ->
         switch _key
-            when 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'x', '-', '+', '='
+            when 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'x', '-', '+', '=', '.'
                 calculate _key
 
             when 'mc', 'm+', 'm-', 'mr'
                 manageMemory _key
 
-        # add '.' functionality
         # todo: innovation
         # switch from mc to c
         # if hit number after result then reset display
