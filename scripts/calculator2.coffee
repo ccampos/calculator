@@ -103,7 +103,7 @@ calc.controller 'CalcCtrl', ($scope) ->
                 memory = if memory is undefined then $scope.display else memory - $scope.display
             when 'mr'
                 if memory?
-                    calcArr.push format memory
+                    calculate format memory
 
         if memory?
             unless $scope.keys.indexOf('mr') is -1

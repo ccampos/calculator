@@ -130,7 +130,7 @@
           break;
         case 'mr':
           if (memory != null) {
-            calcArr.push(format(memory));
+            calculate(format(memory));
           }
       }
       if (memory != null) {
