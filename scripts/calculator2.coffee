@@ -99,12 +99,9 @@ calc.controller 'CalcCtrl', ($scope) ->
                 memorize key
 
         # todo: innovation
-        # add:
-        #   m+
-        #   m-
-        # refactor $scope.next key
         # switch from mc to c
         # if hit number after result then reset display
-        # allow only a certain amount of numbers to be entered in display
+        # remove highlight on button
+        # fix rtl orientation for display of '-'
 
         $scope.display = calcArr[calcArr.length - 1]
