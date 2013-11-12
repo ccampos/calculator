@@ -4,66 +4,61 @@ var calc;
 calc = angular.module('calc', []);
 
 calc.controller('CalcCtrl', function($scope) {
-  var allowDigits, calcArr, calculate, concatNumber, format, memorize, memory, operate;
+  var allowDigits, calcArr, calculate, concatNumber, format, manageMemory, memory, operate;
 
   calcArr = [];
   allowDigits = 10;
   memory = void 0;
   $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
-  operate = function(firstOperand, operator, secondOperand) {
-    var _fOper, _sOper;
-
-    _fOper = firstOperand;
-    _sOper = secondOperand;
-    switch (operator) {
+  operate = function(_firstOperand, _operator, _secondOperand) {
+    switch (_operator) {
       case 'x':
-        return _fOper * _sOper;
+        return _firstOperand * _secondOperand;
       case '/':
-        if (_sOper === 0) {
+        if (_secondOperand === 0) {
           return 'Error';
         }
-        return _fOper / _sOper;
+        return _firstOperand / _secondOperand;
       case '-':
-        return _fOper - _sOper;
+        return _firstOperand - _secondOperand;
       case '+':
-        return _fOper + _sOper;
+        return _firstOperand + _secondOperand;
       default:
         return console.log('operator not found');
     }
   };
-  concatNumber = function(number, number2) {
+  concatNumber = function(_number, _number2) {
     var _numberString;
 
-    _numberString = number.toString() + number2;
+    _numberString = _number.toString() + _number2;
     return +_numberString;
   };
-  format = function(result) {
-    var _decDigitsNeeded, _indexDot, _intDigits, _numLen, _resS, _result;
+  format = function(_result) {
+    var _decimalDigitsNeeded, _indexDot, _integerNumberDigits, _resultString;
 
-    _resS = result.toString();
-    _numLen = _resS.length;
-    _indexDot = _resS.indexOf('.');
-    _intDigits = +_resS.slice(0, _indexDot).length;
-    _decDigitsNeeded = allowDigits - _intDigits;
-    return _result = +result.toFixed(_decDigitsNeeded);
+    _resultString = _result.toString();
+    _indexDot = _resultString.indexOf('.');
+    _integerNumberDigits = +_resultString.slice(0, _indexDot).length;
+    _decimalDigitsNeeded = allowDigits - _integerNumberDigits;
+    return +_result.toFixed(_decimalDigitsNeeded);
   };
-  calculate = function(key) {
+  calculate = function(_key) {
     var _number, _operator, _result;
 
     if (calcArr.length === 0) {
-      if (typeof key === 'number') {
-        _number = key;
+      if (typeof _key === 'number') {
+        _number = _key;
         return calcArr.push(_number);
       }
     } else if (calcArr.length === 1) {
-      if (typeof key === 'number') {
+      if (typeof _key === 'number') {
         if (calcArr[0].toString().length < allowDigits) {
-          _number = key;
+          _number = _key;
           return calcArr[0] = concatNumber(calcArr[0], _number);
         }
       } else {
-        _operator = key;
-        switch (key) {
+        _operator = _key;
+        switch (_key) {
           case '/':
           case 'x':
           case '-':
@@ -72,19 +67,19 @@ calc.controller('CalcCtrl', function($scope) {
         }
       }
     } else if (calcArr.length === 2) {
-      if (typeof key === 'number') {
-        _number = key;
+      if (typeof _key === 'number') {
+        _number = _key;
         return calcArr.push(_number);
       }
     } else if (calcArr.length === 3) {
-      if (typeof key === 'number') {
+      if (typeof _key === 'number') {
         if (calcArr[2].toString().length < allowDigits) {
-          _number = key;
+          _number = _key;
           return calcArr[2] = concatNumber(calcArr[2], _number);
         }
       } else {
-        _operator = key;
-        switch (key) {
+        _operator = _key;
+        switch (_key) {
           case '/':
           case 'x':
           case '-':
@@ -99,8 +94,8 @@ calc.controller('CalcCtrl', function($scope) {
       }
     }
   };
-  memorize = function(key) {
-    switch (key) {
+  manageMemory = function(_key) {
+    switch (_key) {
       case 'mc':
         return memory = void 0;
       case 'm+':
@@ -113,8 +108,8 @@ calc.controller('CalcCtrl', function($scope) {
         }
     }
   };
-  return $scope.next = function(key) {
-    switch (key) {
+  return $scope.handleNext = function(_key) {
+    switch (_key) {
       case 0:
       case 1:
       case 2:
@@ -130,13 +125,13 @@ calc.controller('CalcCtrl', function($scope) {
       case '-':
       case '+':
       case '=':
-        calculate(key);
+        calculate(_key);
         break;
       case 'mc':
       case 'm+':
       case 'm-':
       case 'mr':
-        memorize(key);
+        manageMemory(_key);
     }
     return $scope.display = calcArr[calcArr.length - 1];
   };

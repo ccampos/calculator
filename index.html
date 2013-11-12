@@ -10,7 +10,7 @@
             <div class='desk'>
                 <div class='calculator'>
                     <p class='display' ng-bind='display'></p>
-                    <button ng-click='next(key)' ng-repeat='key in keys'>{{ key }}</button>
+                    <button ng-click='handleNext(key)' ng-repeat='key in keys'>{{ key }}</button>
                 </div>
             </div>
         </div>
