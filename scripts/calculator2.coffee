@@ -88,7 +88,7 @@ calc.controller 'CalcCtrl', ($scope) ->
                 if memory?
                     calcArr.push memory
 
-
+    # entry function
     $scope.handleNext = (_key) ->
         switch _key
             when 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '/', 'x', '-', '+', '='
