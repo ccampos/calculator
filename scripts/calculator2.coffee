@@ -39,7 +39,6 @@ calc.controller 'CalcCtrl', ($scope) ->
                 console.log 'operator not found'
 
     calculate = (_key) ->
-        # operands and operators
         if calcArr.length is 0
             if typeof _key is 'number'
                 _number = _key
