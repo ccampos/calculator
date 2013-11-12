@@ -98,7 +98,7 @@ calc.controller 'CalcCtrl', ($scope) ->
                 memory = if memory is undefined then $scope.display else memory - $scope.display
             when 'mr'
                 if memory?
-                    calcArr.push memory
+                    calcArr.push format memory
 
     # entry function
     $scope.handleNext = (_key) ->
@@ -111,7 +111,6 @@ calc.controller 'CalcCtrl', ($scope) ->
 
         # todo: innovation
         # switch from mc to c
-        # do calculator font (maybe)
         # add red background color to 'mr' when there's memory stored
 
         $scope.display = calcArr[calcArr.length - 1]
