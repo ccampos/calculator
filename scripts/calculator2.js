@@ -29,7 +29,11 @@
       _indexDot = _resultString.indexOf('.');
       _integerNumberDigits = +_resultString.slice(0, _indexDot).length;
       _decimalDigitsNeeded = allowDigits - _integerNumberDigits;
-      return +_result.toFixed(_decimalDigitsNeeded);
+      if (_integerNumberDigits >= allowDigits) {
+        return _result.toExponential(allowDigits - 5);
+      } else {
+        return +_result.toFixed(_decimalDigitsNeeded);
+      }
     };
     operate = function(_firstOperand, _operator, _secondOperand) {
       switch (_operator) {

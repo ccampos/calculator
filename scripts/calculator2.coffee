@@ -27,7 +27,10 @@ calc.controller 'CalcCtrl', ($scope) ->
         _indexDot = _resultString.indexOf('.')
         _integerNumberDigits = +_resultString.slice(0, _indexDot).length
         _decimalDigitsNeeded = allowDigits - _integerNumberDigits
-        +_result.toFixed(_decimalDigitsNeeded)
+        if _integerNumberDigits >= allowDigits
+            _result.toExponential(allowDigits - 5) # to allow for space
+        else
+            +_result.toFixed(_decimalDigitsNeeded)
 
     #main functions
     operate = (_firstOperand, _operator, _secondOperand) ->
@@ -120,8 +123,6 @@ calc.controller 'CalcCtrl', ($scope) ->
             when 'mc', 'm+', 'm-', 'mr'
                 manageMemory _key
 
-        # add red background color to 'mr' when there's memory stored
         # todo: innovation
-        # switch from mc to c
 
         $scope.display = calcArr[calcArr.length - 1]
