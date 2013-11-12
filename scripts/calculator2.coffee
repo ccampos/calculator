@@ -102,5 +102,8 @@ calc.controller 'CalcCtrl', ($scope) ->
         # switch from mc to c
         # if hit number after result then reset display
         # add '.' functionality
+        # refactor functions to eliminate duplicate variable use, eliminating
+        # <- reassigning of arguments into variables
+        # refactor do descriptive names only (long)
 
         $scope.display = calcArr[calcArr.length - 1]
