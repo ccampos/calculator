@@ -89,6 +89,8 @@ calc.controller 'CalcCtrl', ($scope) ->
                         hasResult = true
 
     manageMemory = (_key) ->
+        el = angular.element $ '.mr'
+
         switch _key
             when 'mc'
                 memory = undefined
@@ -100,6 +102,15 @@ calc.controller 'CalcCtrl', ($scope) ->
                 if memory?
                     calcArr.push format memory
 
+        if memory?
+            unless $scope.keys.indexOf('mr') is -1
+                _index = $scope.keys.indexOf 'mr'
+
+                # highlight 'mr' key
+                el.addClass 'highlight'
+        else
+            el.removeClass 'highlight'
+
     # entry function
     $scope.handleNext = (_key) ->
         switch _key
@@ -109,8 +120,8 @@ calc.controller 'CalcCtrl', ($scope) ->
             when 'mc', 'm+', 'm-', 'mr'
                 manageMemory _key
 
+        # add red background color to 'mr' when there's memory stored
         # todo: innovation
         # switch from mc to c
-        # add red background color to 'mr' when there's memory stored
 
         $scope.display = calcArr[calcArr.length - 1]

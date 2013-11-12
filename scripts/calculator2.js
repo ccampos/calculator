@@ -111,17 +111,31 @@
       }
     };
     manageMemory = function(_key) {
+      var el, _index;
+
+      el = angular.element($('.mr'));
       switch (_key) {
         case 'mc':
-          return memory = void 0;
+          memory = void 0;
+          break;
         case 'm+':
-          return memory = memory === void 0 ? $scope.display : memory + $scope.display;
+          memory = memory === void 0 ? $scope.display : memory + $scope.display;
+          break;
         case 'm-':
-          return memory = memory === void 0 ? $scope.display : memory - $scope.display;
+          memory = memory === void 0 ? $scope.display : memory - $scope.display;
+          break;
         case 'mr':
           if (memory != null) {
-            return calcArr.push(format(memory));
+            calcArr.push(format(memory));
           }
+      }
+      if (memory != null) {
+        if ($scope.keys.indexOf('mr') !== -1) {
+          _index = $scope.keys.indexOf('mr');
+          return el.addClass('highlight');
+        }
+      } else {
+        return el.removeClass('highlight');
       }
     };
     return $scope.handleNext = function(_key) {
