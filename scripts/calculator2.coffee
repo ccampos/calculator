@@ -13,6 +13,19 @@ calc.controller 'CalcCtrl', ($scope) ->
         0, '.', '=', '+'
     ]
 
+    # helper functions
+    concatNumber = (_number, _number2) ->
+        _numberString = _number.toString() + _number2
+        +_numberString
+
+    format = (_result) ->
+        _resultString = _result.toString()
+        _indexDot = _resultString.indexOf('.')
+        _integerNumberDigits = +_resultString.slice(0, _indexDot).length
+        _decimalDigitsNeeded = allowDigits - _integerNumberDigits
+        +_result.toFixed(_decimalDigitsNeeded)
+
+    #main functions
     operate = (_firstOperand, _operator, _secondOperand) ->
         switch _operator
             when 'x' then _firstOperand * _secondOperand
@@ -24,17 +37,6 @@ calc.controller 'CalcCtrl', ($scope) ->
             when '+' then _firstOperand + _secondOperand
             else
                 console.log 'operator not found'
-
-    concatNumber = (_number, _number2) ->
-        _numberString = _number.toString() + _number2
-        +_numberString
-
-    format = (_result) ->
-        _resultString = _result.toString()
-        _indexDot = _resultString.indexOf('.')
-        _integerNumberDigits = +_resultString.slice(0, _indexDot).length
-        _decimalDigitsNeeded = allowDigits - _integerNumberDigits
-        +_result.toFixed(_decimalDigitsNeeded)
 
     calculate = (_key) ->
         # operands and operators
@@ -95,15 +97,10 @@ calc.controller 'CalcCtrl', ($scope) ->
             when 'mc', 'm+', 'm-', 'mr'
                 manageMemory _key
 
-        # refactor functions to eliminate duplicate variable use, eliminating
-        # <- reassigning of arguments into variables
-
-        # refactor do descriptive names only (long)
-
+        # add '.' functionality
         # todo: innovation
         # switch from mc to c
         # if hit number after result then reset display
-        # add '.' functionality
         # do calculator font (maybe)
         # add red background color to 'mr' when there's memory stored
 

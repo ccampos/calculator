@@ -10,6 +10,21 @@ calc.controller('CalcCtrl', function($scope) {
   allowDigits = 10;
   memory = void 0;
   $scope.keys = ['mc', 'm+', 'm-', 'mr', 7, 8, 9, '/', 4, 5, 6, 'x', 1, 2, 3, '-', 0, '.', '=', '+'];
+  concatNumber = function(_number, _number2) {
+    var _numberString;
+
+    _numberString = _number.toString() + _number2;
+    return +_numberString;
+  };
+  format = function(_result) {
+    var _decimalDigitsNeeded, _indexDot, _integerNumberDigits, _resultString;
+
+    _resultString = _result.toString();
+    _indexDot = _resultString.indexOf('.');
+    _integerNumberDigits = +_resultString.slice(0, _indexDot).length;
+    _decimalDigitsNeeded = allowDigits - _integerNumberDigits;
+    return +_result.toFixed(_decimalDigitsNeeded);
+  };
   operate = function(_firstOperand, _operator, _secondOperand) {
     switch (_operator) {
       case 'x':
@@ -26,21 +41,6 @@ calc.controller('CalcCtrl', function($scope) {
       default:
         return console.log('operator not found');
     }
-  };
-  concatNumber = function(_number, _number2) {
-    var _numberString;
-
-    _numberString = _number.toString() + _number2;
-    return +_numberString;
-  };
-  format = function(_result) {
-    var _decimalDigitsNeeded, _indexDot, _integerNumberDigits, _resultString;
-
-    _resultString = _result.toString();
-    _indexDot = _resultString.indexOf('.');
-    _integerNumberDigits = +_resultString.slice(0, _indexDot).length;
-    _decimalDigitsNeeded = allowDigits - _integerNumberDigits;
-    return +_result.toFixed(_decimalDigitsNeeded);
   };
   calculate = function(_key) {
     var _number, _operator, _result;
