@@ -101,6 +101,5 @@ calc.controller 'CalcCtrl', ($scope) ->
         # todo: innovation
         # switch from mc to c
         # if hit number after result then reset display
-        # fix rtl orientation for display of '-'
 
         $scope.display = calcArr[calcArr.length - 1]
