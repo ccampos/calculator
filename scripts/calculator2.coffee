@@ -101,5 +101,6 @@ calc.controller 'CalcCtrl', ($scope) ->
         # todo: innovation
         # switch from mc to c
         # if hit number after result then reset display
+        # add '.' functionality
 
         $scope.display = calcArr[calcArr.length - 1]
